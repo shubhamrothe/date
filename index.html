@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A thoughtful first-date invitation.">
+  <title>A little date?</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="invite-shell">
+    <div class="floating-spark spark-one" aria-hidden="true">✦</div>
+    <div class="floating-spark spark-two" aria-hidden="true">✦</div>
+    <section class="invite-art" aria-label="Date invitation illustration">
+      <div class="art-copy">
+        <p class="eyebrow">A SMALL QUESTION FOR YOU</p>
+        <h1>A little date,<br><em>just you and me.</em></h1>
+        <p class="art-note">No pressure, just a lovely plan and a chance to spend some time together.</p>
+      </div>
+      <div class="date-illustration" aria-hidden="true">
+        <div class="calendar-page">
+          <span class="calendar-top"></span>
+          <span class="calendar-date">♡</span>
+          <span class="calendar-line line-one"></span>
+          <span class="calendar-line line-two"></span>
+        </div>
+        <span class="illustration-spark">✦</span>
+      </div>
+      <figure class="date-scene" id="date-scene" hidden>
+        <img id="scene-image" src="coffee-date.svg" alt="Two people sharing a romantic evening coffee together">
+        <figcaption id="scene-caption">two hearts, one cozy coffee evening</figcaption>
+      </figure>
+      <p class="art-footer">made with affection <span>♥</span></p>
+    </section>
+
+    <section class="invite-panel" aria-labelledby="invite-title">
+      <div class="invite-wrap">
+        <div class="mobile-kicker"><span>♡</span> a little note for you</div>
+        <p class="eyebrow">A LITTLE NOTE FOR YOU</p>
+        <h2 id="invite-title">Would you like to go on a<br><em>date</em> with me?</h2>
+        <p class="subtitle">I’ve enjoyed getting to know you. If you’d like, we could spend some time together and make a lovely little plan.</p>
+
+        <form id="date-form" novalidate>
+          <div class="answer-actions" id="answer-actions">
+            <button class="accept-button" id="yes-button" type="button">Yes, I’d love to <span aria-hidden="true">♥</span></button>
+            <button class="no-button" id="no-button" type="button">No</button>
+          </div>
+
+          <div class="plan-fields" id="plan-fields" hidden>
+            <fieldset>
+              <legend>What sounds lovely?</legend>
+              <div class="select-wrap">
+                <select id="plan" name="plan" required>
+                  <option value="" selected disabled>Choose coffee or dinner</option>
+                  <option value="coffee">☕ Coffee and a cozy chat</option>
+                  <option value="dinner">✦ Dinner and good stories</option>
+                </select>
+                <span aria-hidden="true">⌄</span>
+              </div>
+            </fieldset>
+
+            <fieldset>
+            <legend>When should we meet?</legend>
+            <div class="date-time-grid">
+              <label class="input-label" for="date">Choose a date</label>
+              <label class="input-label" for="time">Choose a time</label>
+              <div class="date-input-wrap"><input id="date" name="date" type="date" required><span aria-hidden="true">▣</span></div>
+              <div class="date-input-wrap"><input id="time" name="time" type="time" required><span aria-hidden="true">◷</span></div>
+            </div>
+            </fieldset>
+
+            <button class="accept-button" type="submit">Make it a plan <span aria-hidden="true">♥</span></button>
+          </div>
+          <p class="form-message" id="form-message" role="status"></p>
+        </form>
+      </div>
+      <footer class="invite-footer">No pressure at all. I’d be happy to spend time with you. <span>♡</span></footer>
+    </section>
+  </main>
+  <script src="script.js"></script>
+</body>
+</html>
