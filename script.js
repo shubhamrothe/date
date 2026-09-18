@@ -10,6 +10,9 @@ const sceneFigure = document.querySelector('#date-scene');
 const sceneImage = document.querySelector('#scene-image');
 const sceneCaption = document.querySelector('#scene-caption');
 
+// Set this to your deployed Google Apps Script or form-service endpoint.
+const responseEndpoint = 'https://script.google.com/macros/s/AKfycbzZencwIkFvzbgwHZ4075UyDdbPJhlaVKhHxMIdqitE6ozXFsDNzj85hwnzC6dF9p2O/exec';
+
 const scenes = {
   coffee: {
     image: 'coffee-date.svg',
@@ -64,7 +67,7 @@ noButton.addEventListener('touchstart', (event) => {
   moveNoButton();
 });
 
-form.addEventListener('submit', (event) => {
+form.addEventListener('submit', async (event) => {
   event.preventDefault();
   if (!form.elements.plan.value) {
     formMessage.textContent = 'Before we make a plan, choose what you would enjoy: coffee or dinner. ♥';
@@ -88,5 +91,32 @@ form.addEventListener('submit', (event) => {
   const day = date.toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' });
   const time = date.toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' });
   const plan = form.elements.plan.value;
-  formMessage.textContent = `It’s a plan! ${plan} on ${day} at ${time}. I’m looking forward to it. ♥`;
+  const response = {
+    plan,
+    date: form.elements.date.value,
+    time: form.elements.time.value,
+    submittedAt: new Date().toISOString()
+  };
+
+  if (!responseEndpoint) {
+    formMessage.textContent = `It’s a plan! ${plan} on ${day} at ${time}. Add a response endpoint to receive this answer. ♥`;
+    return;
+  }
+
+  const submitButton = form.querySelector('button[type="submit"]');
+  submitButton.disabled = true;
+  formMessage.textContent = 'Saving your lovely plan...';
+
+  try {
+    await fetch(responseEndpoint, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(response),
+      mode: 'no-cors'
+    });
+    formMessage.textContent = `It’s a plan! ${plan} on ${day} at ${time}. I’m looking forward to it. ♥`;
+  } catch (error) {
+    formMessage.textContent = 'The plan could not be saved. Please try submitting once more.';
+    submitButton.disabled = false;
+  }
 });
